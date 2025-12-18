@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            flex: 1;
+        }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: 20px;
+        }
+        .reset-button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .reset-button:hover {
+            background: #45a049;
+        }
+        .logout-button {
+            padding: 10px 20px;
+            background: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .logout-button:hover {
+            background: #d32f2f;
+        }
+        .content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+        .shop-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+        .item-icon {
+            font-size: 80px;
+            margin: 20px 0;
+        }
+        .items-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .item-card {
+            background: #f5f5f5;
+            padding: 30px;
+            border-radius: 10px;
+            min-width: 200px;
+        }
+        .buy-button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 20px 0;
+        }
+        .buy-button:hover {
+            transform: translateY(-2px);
+        }
+        .buy-button:active {
+            transform: translateY(0);
+        }
+        .buy-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 200px;
+        }
+        .balance {
+            font-size: 16px;
+            color: #333;
+            margin: 5px 0;
+        }
+        .balance span {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .secret-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            max-width: 280px;
+            width: 100%;
+        }
+        .secret-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .secret-key {
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+            color: #333;
+            border: 2px solid #667eea;
+            text-align: center;
+            min-height: 40px;
+            margin-bottom: 12px;
+        }
+        .secret-key:empty::before {
+            content: "...";
+            color: #999;
+        }
+        .get-key-button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .get-key-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+        }
+        .get-key-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        .get-key-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Добро пожаловать, {{USER_NAME}}!</h1>
+        <div class="header-buttons">
+            <form method="POST" action="/reset">
+                <button type="submit" class="reset-button">Начать заново</button>
+            </form>
+            <form method="POST" action="/logout">
+                <button type="submit" class="logout-button">Регистрация</button>
+            </form>
+        </div>
+    </div>
+    <div class="content">
+        <div class="shop-container">
+            <div class="items-container">
+                <div class="item-card">
+                    <div class="item-icon">❄️</div>
+                    <h2>Купить снежинку</h2>
+                    <p>Цена: 10 монет</p>
+                    <form method="POST" action="/buySnowflake">
+                        <button type="submit" class="buy-button{{DISABLED}}">Купить снежинку</button>
+                    </form>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon">🎄</div>
+                    <h2>Купить елочку</h2>
+                    <p>Цена: 10 монет</p>
+                    <form method="POST" action="/buyTree">
+                        <button type="submit" class="buy-button{{DISABLED}}">Купить елочку</button>
+                    </form>
+                </div>
+                <div class="item-card">
+                    <div class="item-icon">🎫</div>
+                    <h2>Купить золотой билет</h2>
+                    <p>Цена: 1 снежинка + 1 елочка</p>
+                    <form method="POST" action="/buyGoldenTicket">
+                        <button type="submit" class="buy-button{{GOLDEN_DISABLED}}">Купить золотой билет</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="secret-box">
+            <h2 class="secret-title">🔐 Секретный ключ</h2>
+            <div class="secret-key" id="secretKey">{{SECRET_KEY}}</div>
+            <form method="POST" action="/getSecretKey" id="getKeyForm">
+                <button type="submit" class="get-key-button{{SECRET_KEY_DISABLED}}">Получить секретный ключ</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="balance">
+            Монеты: <span>{{COINS}}</span>
+        </div>
+        <div class="balance">
+            Снежинки: <span>{{SNOWFLAKES}}</span>
+        </div>
+        <div class="balance">
+            Елочки: <span>{{TREES}}</span>
+        </div>
+        <div class="balance">
+            Золотые билеты: <span>{{GOLDEN_TICKETS}}</span>
+        </div>
+    </div>
+</body>
+</html>
+
