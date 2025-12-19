@@ -260,7 +260,7 @@ std::string HttpHandler::handleRequest(const std::string& request) {
         
         User* user = shop.getUserByToken(token);
         if (user->goldenTickets >= 1) {
-            std::string secretKey = "FLAG{CAOS_CTF_FLAG_YdhE213}";
+            std::string secretKey = "it_is_not_a_real_flag";
             std::string keyPage = "<!DOCTYPE html><html lang=\"ru\"><head><meta charset=\"UTF-8\"><title>Секретный ключ</title><style>body{font-family:Arial,sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;justify-content:center;align-items:center;}.container{background:white;padding:40px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.2);text-align:center;max-width:600px;}.key{background:#f5f5f5;padding:20px;border-radius:5px;font-family:'Courier New',monospace;font-size:18px;word-break:break-all;color:#333;border:2px solid #667eea;margin:20px 0;}.back-button{padding:12px 30px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;border:none;border-radius:5px;font-size:16px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;margin-top:20px;transition:transform 0.2s;}.back-button:hover{transform:translateY(-2px);}</style></head><body><div class=\"container\"><h1>🔐 Секретный ключ</h1><div class=\"key\">" + secretKey + "</div><a href=\"/\" class=\"back-button\">Вернуться на главную</a></div></body></html>";
             return "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n" + keyPage;
         } else {
